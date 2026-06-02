@@ -990,3 +990,154 @@ setInterval(() => {
 // Initialize
 renderUpgrades();
 updateDisplay();
+
+/* injected */
+// --- STATE MANAGEMENT ---
+let files = {
+    html: `<!DOCTYPE html>\n<html>\n<head>\n<link rel="stylesheet" href="style.css">\n</head>\n<body>\n<h1>Nexus Project</h1>\n<script src="script.js"></script>\n</body>\n</html>`,
+    css: `body { background: #05070a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; }`,
+    js: `console.log('Nexus Live Preview Initialized');`
+};
+
+let currentFile = 'html';
+const editor = document.getElementById('code-editor');
+const preview = document.getElementById('preview-frame');
+const terminal = document.getElementById('terminal');
+
+// --- IDE ENGINE ---
+function log(msg, type = '') {
+    const line = document.createElement('div');
+    line.className = `terminal-line ${type}`;
+    line.innerText = `> ${msg}`;
+    terminal.appendChild(line);
+    terminal.scrollTop = terminal.scrollHeight;
+}
+
+function switchFile(ext) {
+    files[currentFile] = editor.value;
+    currentFile = ext;
+    editor.value = files[ext];
+    document.querySelectorAll('.tab').forEach(t => {
+        t.classList.toggle('active', t.innerText.includes(ext));
+    });
+}
+
+function updatePreview() {
+    const combined = `
+        ${files.html}
+        <style>${files.css}</style>
+        <script>${files.js}<\/script>
+    `;
+    const blob = new Blob([combined], { type: 'text/html' });
+    preview.src = URL.createObjectURL(blob);
+}
+
+editor.addEventListener('input', () => {
+    files[currentFile] = editor.value;
+    updatePreview();
+});
+
+// --- CODE INJECTION PIPELINE ---
+function injectCode(type, payload) {
+    log(`Interecepting AI ${type} payload...`);
+    if (type === 'html') {
+        files.html = payload;
+    } else {
+        files[type] += `\n\n${payload}`;
+    }
+    
+    if (currentFile === type) editor.value = files[type];
+    updatePreview();
+    log(`[Success] ${type} updated and re-rendered.`, 'terminal-success');
+}
+
+// --- SIMULATED AI RESPONSE (For logic demonstration) ---
+document.getElementById('send-btn').onclick = () => {
+    const prompt = document.getElementById('ai-input').value;
+    if (!prompt) return;
+    
+    // Simulate AI producing a block
+    const stream = document.getElementById('stream-content');
+    const block = document.createElement('div');
+    block.className = 'code-block';
+    const code = `body { background: linear-gradient(to right, #000, #111); animation: fade 2s; }`; // Mock output
+    
+    block.innerHTML = `
+        <div class="code-header"><span>STYLE.CSS</span></div>
+        <div class="code-pre">${code}</div>
+        <button class="inject-btn" onclick="injectCode('css', '${code}')">⚡ AUTOMATIC INJECT</button>
+    `;
+    stream.prepend(block);
+    document.getElementById('ai-input').value = '';
+};
+
+// --- GITHUB DEPLOYMENT PIPELINE ---
+async function deployToGithub() {
+    const token = localStorage.getItem('gh-token');
+    const repo = localStorage.getItem('gh-repo');
+    
+    if (!token || !repo) {
+        log("Error: No Cloud Credentials found.", "terminal-error");
+        openSettings();
+        return;
+    }
+
+    log("Initiating Deployment Pipeline...");
+    
+    try {
+        // 1. Get User Data
+        const userRes = await fetch('https://api.github.com/user', {
+            headers: { 'Authorization': `token ${token}` }
+        });
+        const userData = await userRes.json();
+        const username = userData.login;
+        log(`Authenticated as ${username}`, "terminal-success");
+
+        // 2. Multi-file Commit Loop
+        for (const [name, content] of Object.entries(files)) {
+            const filename = name === 'html' ? 'index.html' : (name === 'css' ? 'style.css' : 'script.js');
+            const path = `https://api.github.com/repos/${username}/${repo}/contents/${filename}`;
+            
+            // Get SHA if exists
+            const fileCheck = await fetch(path, { headers: { 'Authorization': `token ${token}` } });
+            let sha = "";
+            if (fileCheck.status === 200) {
+                const existingData = await fileCheck.json();
+                sha = existingData.sha;
+            }
+
+            log(`Committing ${filename}...`);
+            await fetch(path, {
+                method: 'PUT',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: "Nexus Auto-Deploy",
+                    content: btoa(content),
+                    sha: sha
+                })
+            });
+        }
+
+        log(`Site Live: https://${username}.github.io/${repo}/`, "terminal-success");
+        alert(`Successfully Deployed!\nhttps://${username}.github.io/${repo}/`);
+
+    } catch (err) {
+        log(`Deploy Failed: ${err.message}`, "terminal-error");
+    }
+}
+
+// --- MODAL & SETTINGS ---
+window.openSettings = () => document.getElementById('settings-modal').style.display = 'flex';
+window.closeSettings = () => document.getElementById('settings-modal').style.display = 'none';
+window.saveSettings = () => {
+    localStorage.setItem('gh-token', document.getElementById('gh-token').value);
+    localStorage.setItem('gh-repo', document.getElementById('gh-repo').value);
+    log("Credentials saved locally.");
+    closeSettings();
+};
+
+document.getElementById('deploy-btn').onclick = deployToGithub;
+
+// Hydrate
+editor.value = files.html;
+updatePreview();

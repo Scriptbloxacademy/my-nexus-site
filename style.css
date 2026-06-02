@@ -1,0 +1,651 @@
+
+/* injected */
+.game-body {
+    background: radial-gradient(circle, #2c1e14 0%, #0a0b10 100%);
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    color: white;
+    user-select: none;
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: 300px 1fr 300px;
+    height: 100vh;
+}
+
+.stats-panel {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2rem;
+    text-align: center;
+    border-right: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.score-container h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    margin-bottom: 0;
+    color: var(--accent);
+    text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+}
+
+.clicker-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.cookie-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+#main-cookie {
+    width: 350px;
+    transition: transform 0.05s;
+    filter: drop-shadow(0 0 30px rgba(139, 69, 19, 0.4));
+}
+
+#main-cookie:active {
+    transform: scale(0.92);
+}
+
+.shop-panel {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 1.5rem;
+    overflow-y: auto;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.shop-item {
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+    opacity: 0.5;
+}
+
+.shop-item.available {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.shop-item.available:hover {
+    background: var(--primary);
+    transform: translateX(-5px);
+}
+
+.floating-text {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    pointer-events: none;
+    animation: floatUp 0.8s ease-out forwards;
+    z-index: 100;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100px); opacity: 0; }
+}
+
+/* injected */
+:root {
+    --accent: #ffcc00;
+    --primary: #7000ff;
+}
+
+.game-body {
+    background: radial-gradient(circle, #3d2b1f 0%, #0a0b10 100%);
+    height: 100vh;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    overflow: hidden;
+    user-select: none;
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: 280px 1fr 320px;
+    height: 100vh;
+}
+
+.stats-panel {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 3rem 1rem;
+    text-align: center;
+    border-right: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+.score-container h1 {
+    font-size: 3rem;
+    color: var(--accent);
+    margin: 0.5rem 0;
+}
+
+.cookie-graphic {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle at 30% 30%, #d2691e, #8b4513);
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.5), inset -10px -10px 20px rgba(0,0,0,0.3);
+    transition: transform 0.05s;
+    border: 8px solid #a0522d;
+}
+
+/* Chocolate chips */
+.cookie-graphic::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, #3e1b0c 15px, transparent 0),
+        radial-gradient(circle at 70% 20%, #3e1b0c 12px, transparent 0),
+        radial-gradient(circle at 50% 50%, #3e1b0c 18px, transparent 0),
+        radial-gradient(circle at 30% 70%, #3e1b0c 14px, transparent 0),
+        radial-gradient(circle at 80% 60%, #3e1b0c 16px, transparent 0),
+        radial-gradient(circle at 60% 85%, #3e1b0c 13px, transparent 0);
+    border-radius: 50%;
+}
+
+.cookie-graphic:active {
+    transform: scale(0.95);
+}
+
+.shop-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    border-radius: 12px;
+    cursor: not-allowed;
+    display: flex;
+    justify-content: space-between;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+.shop-item.available {
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.shop-item.available:hover {
+    background: rgba(112, 0, 255, 0.3);
+    transform: scale(1.02);
+}
+
+.floating-text {
+    position: absolute;
+    font-weight: 800;
+    color: var(--accent);
+    pointer-events: none;
+    animation: floatUp 0.6s ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120px); opacity: 0; }
+}
+
+/* injected */
+body, html {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+    background: #1a1a1a;
+    color: white;
+    overflow: hidden;
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: 250px 1fr 300px;
+    height: 100vh;
+}
+
+.side-panel {
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    border: 2px solid #333;
+}
+
+.main-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(#333, #000);
+}
+
+.cookie {
+    width: 250px;
+    height: 250px;
+    background: #d2a679;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.05s;
+    border: 10px solid #c68c53;
+}
+
+.cookie:active {
+    transform: scale(0.95);
+}
+
+.chips {
+    width: 100%; height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 40%, #4b3621 15px, transparent 16px),
+        radial-gradient(circle at 60% 20%, #4b3621 12px, transparent 13px),
+        radial-gradient(circle at 75% 65%, #4b3621 18px, transparent 19px),
+        radial-gradient(circle at 40% 80%, #4b3621 14px, transparent 15px);
+    border-radius: 50%;
+}
+
+.stats h1 { font-size: 3rem; color: #ffd700; margin: 10px 0; }
+
+.item {
+    background: #333;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.item.can-buy { opacity: 1; border: 1px solid #ffd700; }
+
+.float-msg {
+    position: absolute;
+    color: #ffd700;
+    font-weight: bold;
+    pointer-events: none;
+    animation: moveUp 0.8s forwards;
+    z-index: 100;
+}
+
+@keyframes moveUp {
+    to { transform: translateY(-100px); opacity: 0; }
+}
+
+/* injected */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.game-wrapper {
+    background: #0f1014;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+.main-display {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: radial-gradient(circle, #2c1e14 0%, #0a0b10 100%);
+}
+
+.score-board {
+    position: absolute;
+    top: 50px;
+    text-align: center;
+    background: rgba(0,0,0,0.5);
+    padding: 20px 40px;
+    border-radius: 20px;
+    border: 1px solid #444;
+}
+
+.score-board h1 { font-size: 4rem; color: #ffcc00; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+.cookie-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+}
+
+.cookie-element {
+    width: 280px;
+    height: 280px;
+    background: #c68c53;
+    border-radius: 50%;
+    border: 8px solid #8b4513;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    transition: transform 0.05s ease;
+}
+
+.cookie-element:active { transform: scale(0.92); }
+
+.chip { background: #3e1b0c; border-radius: 50%; position: absolute; }
+.chip-1 { width: 30px; height: 30px; top: 50px; left: 60px; }
+.chip-2 { width: 25px; height: 25px; top: 150px; right: 80px; }
+.chip-3 { width: 35px; height: 35px; bottom: 60px; left: 100px; }
+
+.shop-sidebar {
+    width: 320px;
+    background: #161b22;
+    padding: 20px;
+    border-left: 2px solid #30363d;
+}
+
+.upgrade-item {
+    background: #21262d;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+.upgrade-item.active { opacity: 1; background: #30363d; }
+.upgrade-item:hover.active { border: 1px solid #ffcc00; }
+
+.float-text {
+    position: absolute;
+    color: #ffcc00;
+    font-weight: bold;
+    pointer-events: none;
+    font-size: 24px;
+    animation: fadeUp 1s forwards;
+    z-index: 10;
+}
+
+@keyframes fadeUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-150px); opacity: 0; }
+}
+
+/* injected */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.game-wrapper {
+    background: #0f1014;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+.main-display {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: radial-gradient(circle, #2c1e14 0%, #0a0b10 100%);
+}
+
+.score-board {
+    position: absolute;
+    top: 50px;
+    text-align: center;
+    background: rgba(0,0,0,0.5);
+    padding: 20px 40px;
+    border-radius: 20px;
+    border: 1px solid #444;
+}
+
+.score-board h1 { font-size: 4rem; color: #ffcc00; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+.cookie-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+}
+
+.cookie-element {
+    width: 280px;
+    height: 280px;
+    background: #c68c53;
+    border-radius: 50%;
+    border: 8px solid #8b4513;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    transition: transform 0.05s ease;
+}
+
+.cookie-element:active { transform: scale(0.92); }
+
+.chip { background: #3e1b0c; border-radius: 50%; position: absolute; }
+.chip-1 { width: 30px; height: 30px; top: 50px; left: 60px; }
+.chip-2 { width: 25px; height: 25px; top: 150px; right: 80px; }
+.chip-3 { width: 35px; height: 35px; bottom: 60px; left: 100px; }
+
+.shop-sidebar {
+    width: 320px;
+    background: #161b22;
+    padding: 20px;
+    border-left: 2px solid #30363d;
+}
+
+.upgrade-item {
+    background: #21262d;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+.upgrade-item.active { opacity: 1; background: #30363d; }
+.upgrade-item:hover.active { border: 1px solid #ffcc00; }
+
+.float-text {
+    position: absolute;
+    color: #ffcc00;
+    font-weight: bold;
+    pointer-events: none;
+    font-size: 24px;
+    animation: fadeUp 1s forwards;
+    z-index: 10;
+}
+
+@keyframes fadeUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-150px); opacity: 0; }
+}
+
+/* injected */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: #111;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.game-layout {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100vh;
+}
+
+.game-canvas {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #332211 0%, #000 100%);
+}
+
+.score-area {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#count-display {
+    font-size: 4rem;
+    color: #ffcc00;
+    text-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+}
+
+.cookie-box {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cookie-object {
+    width: 180px;
+    height: 180px;
+    background: #d2a679;
+    border-radius: 50%;
+    border: 6px solid #8b4513;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    transition: transform 0.05s;
+}
+
+.cookie-object:active {
+    transform: scale(0.9);
+}
+
+.chip {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #4b3621;
+    border-radius: 50%;
+}
+
+.sidebar {
+    width: 300px;
+    background: #1a1a1a;
+    border-left: 2px solid #333;
+    padding: 20px;
+}
+
+.item {
+    background: #2a2a2a;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.item.locked { opacity: 0.5; cursor: not-allowed; }
+.item.affordable { border-color: #ffcc00; opacity: 1; }
+
+.float-txt {
+    position: absolute;
+    color: #ffcc00;
+    font-weight: bold;
+    font-size: 24px;
+    pointer-events: none;
+    animation: cookiefloat 0.7s forwards;
+    z-index: 99;
+}
+
+@keyframes cookiefloat {
+    to { transform: translateY(-100px); opacity: 0; }
+}
+
+/* injected */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+
+body { background: #0a0a0a; color: white; height: 100vh; overflow: hidden; }
+
+.game-wrapper { display: flex; height: 100vh; flex-direction: row-reverse; }
+
+.game-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #222 0%, #000 100%);
+    position: relative;
+}
+
+.stats-float { text-align: center; margin-bottom: 30px; }
+#cookie-total { font-size: 3.5rem; color: #ffcc00; }
+
+.cookie-stage {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cookie-element {
+    width: 180px;
+    height: 180px;
+    background: #c68c53;
+    border-radius: 50%;
+    border: 6px solid #8b4513;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.05s;
+    /* This ensures children don't steal the click */
+    pointer-events: all;
+}
+
+.cookie-element:active { transform: scale(0.9); }
+
+.chip {
+    position: absolute; width: 22px; height: 22px; background: #3e1b0c; border-radius: 50%;
+    pointer-events: none; /* Crucial: click goes through chip to cookie */
+}
+.chip:nth-child(1) { top: 20%; left: 30%; }
+.chip:nth-child(2) { top: 50%; left: 60%; }
+.chip:nth-child(3) { bottom: 20%; left: 40%; }
+
+.shop-panel { width: 280px; background: #111; padding: 20px; border-left: 1px solid #333; }
+.shop-item { 
+    background: #222; padding: 15px; margin-bottom: 10px; border-radius: 8px; 
+    cursor: pointer; border: 1px solid transparent; opacity: 0.6;
+}
+.shop-item.can-afford { opacity: 1; border-color: #444; }
+.shop-item:hover.can-afford { background: #333; }
+
+.plus-one {
+    position: absolute; color: #ffcc00; font-weight: bold; font-size: 24px;
+    pointer-events: none; animation: floatUp 0.6s ease-out forwards;
+}
+@keyframes floatUp { 0% { opacity: 1; } 100% { transform: translateY(-100px); opacity: 0; } }

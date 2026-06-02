@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS COOKIE CLICKER</title>
+    <title>NEXUS Clicker | Premium Edition</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="game-wrapper">
-        <aside class="shop-panel">
-            <h2 class="shop-header">SHOP</h2>
-            <div id="shop-list"></div>
-        </aside>
+    <div class="game-container">
+        <section class="main-clicker">
+            <div class="stats">
+                <h1 id="cookie-count">0</h1>
+                <p id="cps-display">CPS: 0.0</p>
+            </div>
+            <div class="cookie-wrapper">
+                <div id="cookie" class="cookie"></div>
+            </div>
+        </section>
 
-        <main class="game-center">
-            <div class="stats-float">
-                <h1 id="cookie-total">0</h1>
-                <p id="cps-val">per second: 0.0</p>
+        <aside class="shop">
+            <div class="shop-header">UPGRADES</div>
+            <div id="upgrade-list" class="upgrade-list">
+                <!-- Upgrades injected by JS -->
             </div>
-            
-            <div class="cookie-stage">
-                <div id="cookie-hitbox" class="cookie-element">
-                    <div class="chip"></div>
-                    <div class="chip"></div>
-                    <div class="chip"></div>
-                </div>
-            </div>
-        </main>
+        </aside>
     </div>
     <script src="script.js"></script>
 </body>

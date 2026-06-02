@@ -646,3 +646,347 @@ setInterval(() => {
 
 // Startup
 updateFullUI();
+
+/* injected */
+const state = {
+    cookies: 0,
+    cps: 0,
+    upgrades: [
+        { id: 'cursor', name: 'Auto-Clicker', cost: 15, power: 0.5, owned: 0 },
+        { id: 'grandma', name: 'Nano-Bakery', cost: 100, power: 5, owned: 0 },
+        { id: 'factory', name: 'Cookie Forge', cost: 1100, power: 25, owned: 0 },
+        { id: 'nexus', name: 'Nexus Engine', cost: 12000, power: 150, owned: 0 }
+    ]
+};
+
+const cookieBtn = document.getElementById('cookie');
+const countEl = document.getElementById('cookie-count');
+const cpsEl = document.getElementById('cps-display');
+const upgradeList = document.getElementById('upgrade-list');
+
+function init() {
+    renderUpgrades();
+    gameLoop();
+}
+
+function updateDisplay() {
+    countEl.innerText = Math.floor(state.cookies).toLocaleString();
+    cpsEl.innerText = `CPS: ${state.cps.toFixed(1)}`;
+    
+    document.querySelectorAll('.upgrade-item').forEach((el, index) => {
+        const up = state.upgrades[index];
+        el.classList.toggle('disabled', state.cookies < up.cost);
+        el.querySelector('.cost').innerText = Math.floor(up.cost);
+    });
+}
+
+function renderUpgrades() {
+    upgradeList.innerHTML = state.upgrades.map((up, i) => `
+        <div class="upgrade-item" onclick="buyUpgrade(${i})">
+            <div style="font-weight: bold">${up.name}</div>
+            <div style="font-size: 0.8rem; color: #888">
+                Cost: <span class="cost">${up.cost}</span> | Owned: <span class="owned">${up.owned}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+function buyUpgrade(index) {
+    const up = state.upgrades[index];
+    if (state.cookies >= up.cost) {
+        state.cookies -= up.cost;
+        up.owned++;
+        up.cost *= 1.15;
+        state.cps += up.power;
+        renderUpgrades();
+        updateDisplay();
+    }
+}
+
+cookieBtn.addEventListener('click', (e) => {
+    state.cookies += 1;
+    createParticle(e.clientX, e.clientY);
+    updateDisplay();
+});
+
+function createParticle(x, y) {
+    const p = document.createElement('div');
+    p.className = 'float-text';
+    p.innerText = '+1';
+    p.style.left = `${x}px`;
+    p.style.top = `${y}px`;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 800);
+}
+
+function gameLoop() {
+    state.cookies += state.cps / 60;
+    updateDisplay();
+    requestAnimationFrame(gameLoop);
+}
+
+init();
+
+/* injected */
+// Resetting the script to ensure zero conflicts
+const state = {
+    cookies: 0,
+    cps: 0,
+    upgrades: [
+        { id: 'cursor', name: 'Auto-Clicker', cost: 15, power: 0.5, owned: 0 },
+        { id: 'grandma', name: 'Nano-Bakery', cost: 100, power: 5, owned: 0 },
+        { id: 'factory', name: 'Cookie Forge', cost: 1100, power: 25, owned: 0 },
+        { id: 'nexus', name: 'Nexus Engine', cost: 12000, power: 150, owned: 0 }
+    ]
+};
+
+const cookieBtn = document.getElementById('cookie');
+const countEl = document.getElementById('cookie-count');
+const cpsEl = document.getElementById('cps-display');
+const upgradeList = document.getElementById('upgrade-list');
+
+function updateDisplay() {
+    countEl.innerText = Math.floor(state.cookies).toLocaleString();
+    cpsEl.innerText = `CPS: ${state.cps.toFixed(1)}`;
+    
+    // Update upgrade buttons state
+    document.querySelectorAll('.upgrade-item').forEach((el, i) => {
+        const up = state.upgrades[i];
+        if (state.cookies < up.cost) {
+            el.classList.add('disabled');
+        } else {
+            el.classList.remove('disabled');
+        }
+    });
+}
+
+function renderUpgrades() {
+    upgradeList.innerHTML = '';
+    state.upgrades.forEach((up, i) => {
+        const div = document.createElement('div');
+        div.className = 'upgrade-item';
+        div.innerHTML = `
+            <div style="font-weight: bold">${up.name}</div>
+            <div style="font-size: 0.8rem; color: #888">
+                Cost: <span class="cost">${Math.floor(up.cost)}</span> | Owned: <span class="owned">${up.owned}</span>
+            </div>
+        `;
+        div.onclick = () => buyUpgrade(i);
+        upgradeList.appendChild(div);
+    });
+}
+
+window.buyUpgrade = function(index) {
+    const up = state.upgrades[index];
+    if (state.cookies >= up.cost) {
+        state.cookies -= up.cost;
+        up.owned++;
+        up.cost = Math.ceil(up.cost * 1.15);
+        state.cps += up.power;
+        renderUpgrades();
+        updateDisplay();
+    }
+};
+
+// Main Click Handler
+cookieBtn.addEventListener('mousedown', function(e) {
+    state.cookies += 1;
+    updateDisplay();
+    
+    // Small click animation
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => { this.style.transform = 'scale(1)'; }, 50);
+
+    // Floating text
+    const text = document.createElement('div');
+    text.className = 'float-text';
+    text.innerText = '+1';
+    text.style.left = e.pageX + 'px';
+    text.style.top = e.pageY + 'px';
+    document.body.appendChild(text);
+    setTimeout(() => text.remove(), 800);
+});
+
+// Passive Income Loop (Run every 100ms)
+setInterval(() => {
+    if (state.cps > 0) {
+        state.cookies += state.cps / 10;
+        updateDisplay();
+    }
+}, 100);
+
+// Initialize
+renderUpgrades();
+updateDisplay();
+
+/* injected */
+// Re-initializing the core logic with improved event handling and coordinate mapping
+const state = {
+    cookies: 0,
+    cps: 0,
+    upgrades: [
+        { id: 'cursor', name: 'Auto-Clicker', cost: 15, power: 0.5, owned: 0 },
+        { id: 'grandma', name: 'Nano-Bakery', cost: 100, power: 5, owned: 0 },
+        { id: 'factory', name: 'Cookie Forge', cost: 1100, power: 25, owned: 0 },
+        { id: 'nexus', name: 'Nexus Engine', cost: 12000, power: 150, owned: 0 }
+    ]
+};
+
+const cookieBtn = document.getElementById('cookie');
+const countEl = document.getElementById('cookie-count');
+const cpsEl = document.getElementById('cps-display');
+const upgradeList = document.getElementById('upgrade-list');
+
+function init() {
+    renderUpgrades();
+    setInterval(() => {
+        state.cookies += state.cps / 10;
+        updateDisplay();
+    }, 100);
+}
+
+function updateDisplay() {
+    countEl.innerText = Math.floor(state.cookies).toLocaleString();
+    cpsEl.innerText = `CPS: ${state.cps.toFixed(1)}`;
+    
+    const items = document.querySelectorAll('.upgrade-item');
+    state.upgrades.forEach((up, i) => {
+        if(items[i]) {
+            items[i].classList.toggle('disabled', state.cookies < up.cost);
+            items[i].querySelector('.cost').innerText = Math.floor(up.cost);
+            items[i].querySelector('.owned').innerText = up.owned;
+        }
+    });
+}
+
+function renderUpgrades() {
+    upgradeList.innerHTML = state.upgrades.map((up, i) => `
+        <div class="upgrade-item" onclick="buyUpgrade(${i})">
+            <div style="font-weight: bold">${up.name}</div>
+            <div style="font-size: 0.8rem; color: #888">
+                Cost: <span class="cost">${Math.floor(up.cost)}</span> | Owned: <span class="owned">${up.owned}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+window.buyUpgrade = function(index) {
+    const up = state.upgrades[index];
+    if (state.cookies >= up.cost) {
+        state.cookies -= up.cost;
+        up.owned++;
+        up.cost = Math.ceil(up.cost * 1.15);
+        state.cps += up.power;
+        updateDisplay();
+    }
+};
+
+cookieBtn.addEventListener('mousedown', (e) => {
+    state.cookies += 1;
+    updateDisplay();
+    spawnText(e.pageX, e.pageY);
+});
+
+function spawnText(x, y) {
+    const text = document.createElement('div');
+    text.className = 'float-text';
+    text.innerText = '+1';
+    text.style.left = `${x}px`;
+    text.style.top = `${y}px`;
+    document.body.appendChild(text);
+    setTimeout(() => text.remove(), 800);
+}
+
+init();
+
+/* injected */
+// Resetting the script to ensure zero conflicts
+const state = {
+    cookies: 0,
+    cps: 0,
+    upgrades: [
+        { id: 'cursor', name: 'Auto-Clicker', cost: 15, power: 0.5, owned: 0 },
+        { id: 'grandma', name: 'Nano-Bakery', cost: 100, power: 5, owned: 0 },
+        { id: 'factory', name: 'Cookie Forge', cost: 1100, power: 25, owned: 0 },
+        { id: 'nexus', name: 'Nexus Engine', cost: 12000, power: 150, owned: 0 }
+    ]
+};
+
+const cookieBtn = document.getElementById('cookie');
+const countEl = document.getElementById('cookie-count');
+const cpsEl = document.getElementById('cps-display');
+const upgradeList = document.getElementById('upgrade-list');
+
+function updateDisplay() {
+    countEl.innerText = Math.floor(state.cookies).toLocaleString();
+    cpsEl.innerText = `CPS: ${state.cps.toFixed(1)}`;
+    
+    // Update upgrade buttons state
+    document.querySelectorAll('.upgrade-item').forEach((el, i) => {
+        const up = state.upgrades[i];
+        if (state.cookies < up.cost) {
+            el.classList.add('disabled');
+        } else {
+            el.classList.remove('disabled');
+        }
+    });
+}
+
+function renderUpgrades() {
+    upgradeList.innerHTML = '';
+    state.upgrades.forEach((up, i) => {
+        const div = document.createElement('div');
+        div.className = 'upgrade-item';
+        div.innerHTML = `
+            <div style="font-weight: bold">${up.name}</div>
+            <div style="font-size: 0.8rem; color: #888">
+                Cost: <span class="cost">${Math.floor(up.cost)}</span> | Owned: <span class="owned">${up.owned}</span>
+            </div>
+        `;
+        div.onclick = () => buyUpgrade(i);
+        upgradeList.appendChild(div);
+    });
+}
+
+window.buyUpgrade = function(index) {
+    const up = state.upgrades[index];
+    if (state.cookies >= up.cost) {
+        state.cookies -= up.cost;
+        up.owned++;
+        up.cost = Math.ceil(up.cost * 1.15);
+        state.cps += up.power;
+        renderUpgrades();
+        updateDisplay();
+    }
+};
+
+// Main Click Handler
+cookieBtn.addEventListener('mousedown', function(e) {
+    state.cookies += 1;
+    updateDisplay();
+    
+    // Small click animation
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => { this.style.transform = 'scale(1)'; }, 50);
+
+    // Floating text
+    const text = document.createElement('div');
+    text.className = 'float-text';
+    text.innerText = '+1';
+    text.style.left = e.pageX + 'px';
+    text.style.top = e.pageY + 'px';
+    document.body.appendChild(text);
+    setTimeout(() => text.remove(), 800);
+});
+
+// Passive Income Loop (Run every 100ms)
+setInterval(() => {
+    if (state.cps > 0) {
+        state.cookies += state.cps / 10;
+        updateDisplay();
+    }
+}, 100);
+
+// Initialize
+renderUpgrades();
+updateDisplay();

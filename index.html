@@ -2,30 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS Clicker | Premium Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEXUS | AI Workspace Engine</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="game-container">
-        <section class="main-clicker">
-            <div class="stats">
-                <h1 id="cookie-count">0</h1>
-                <p id="cps-display">CPS: 0.0</p>
+    <div class="workspace-grid">
+        <!-- Panel 1: AI Conversations -->
+        <aside class="panel chat-panel">
+            <div class="panel-header">
+                <span class="status-badge">AI ENGINE: ACTIVE</span>
             </div>
-            <div class="cookie-wrapper">
-                <div id="cookie" class="cookie"></div>
+            <div id="chat-log" class="chat-viewport">
+                <div class="message system">Welcome to Nexus. Request a feature to begin building.</div>
+            </div>
+            <div class="chat-input-area">
+                <textarea id="ai-input" placeholder="Describe your website..."></textarea>
+                <button id="send-btn">Generate</button>
+            </div>
+            <div id="terminal" class="terminal-view">
+                <div class="terminal-line">> System initialized. Ready for code injection.</div>
+            </div>
+        </aside>
+
+        <!-- Panel 2: Code Stream Blocks -->
+        <section class="panel stream-panel">
+            <div class="panel-header">CODE STREAM</div>
+            <div id="stream-content" class="stream-viewport">
+                <!-- AI Generated blocks appear here -->
             </div>
         </section>
 
-        <aside class="shop">
-            <div class="shop-header">UPGRADES</div>
-            <div id="upgrade-list" class="upgrade-list">
-                <!-- Upgrades injected by JS -->
+        <!-- Panel 3: IDE Editor -->
+        <section class="panel editor-panel">
+            <div class="tabs">
+                <button class="tab active" onclick="switchFile('html')">index.html</button>
+                <button class="tab" onclick="switchFile('css')">style.css</button>
+                <button class="tab" onclick="switchFile('js')">script.js</button>
             </div>
-        </aside>
+            <textarea id="code-editor" spellcheck="false"></textarea>
+            <div class="editor-footer">
+                <button onclick="openSettings()" class="btn-secondary">⚙️ Credentials</button>
+                <button id="deploy-btn" class="btn-primary">⚡ Deploy to GitHub</button>
+            </div>
+        </section>
+
+        <!-- Panel 4: Live Viewport -->
+        <section class="panel preview-panel">
+            <div class="panel-header">LIVE PREVIEW</div>
+            <div class="preview-container">
+                <iframe id="preview-frame"></iframe>
+            </div>
+        </section>
     </div>
+
+    <!-- Credentials Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h3>Cloud Credentials</h3>
+            <input type="password" id="gh-token" placeholder="GitHub Personal Access Token (PAT)">
+            <input type="text" id="gh-repo" placeholder="Repository Name (e.g. nexus-project)">
+            <div class="modal-actions">
+                <button onclick="closeSettings()" class="btn-secondary">Cancel</button>
+                <button onclick="saveSettings()" class="btn-primary">Save & Verify</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
